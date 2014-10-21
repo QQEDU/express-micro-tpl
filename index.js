@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 exports = module.exports = require('micro-tpl');
 
 exports.cache = {};
@@ -30,5 +32,3 @@ exports.__express = function (path, options, fn) {
     : fs.readFileSync(path, 'utf8');
   return build(str, { strict: true, ret: 'function' })(options, exports.helper);
 };
-
-module.exports = microTpl;
