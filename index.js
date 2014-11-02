@@ -17,7 +17,7 @@ exports.__express = function (path, options, fn) {
   if (typeof fn === 'function') {
     var res
     try {
-      res = exports(fs.readFileSync(path, 'utf8'), { strict: true, ret: 'function' })(null, exports.helper);
+      res = exports(fs.readFileSync(path, 'utf8'), { strict: true, ret: 'function' })(options, exports.helper);
     } catch (ex) {
       return fn(ex);
     }
@@ -30,5 +30,5 @@ exports.__express = function (path, options, fn) {
   var str = options.cache
     ? exports.cache[key] || (exports.cache[key] = fs.readFileSync(path, 'utf8'))
     : fs.readFileSync(path, 'utf8');
-  return build(str, { strict: true, ret: 'function' })(options, exports.helper);
+  return exports(str, { strict: true, ret: 'function' })(options, exports.helper);
 };
